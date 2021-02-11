@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.co.phonebook.contact.dto.PhoneDTO;
+import za.co.phonebook.contact.repo.PhoneBookRepository;
 import za.co.phonebook.contact.service.PhoneBookService;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PhoneBookController {
 
     private PhoneBookService phoneBookService;
+    private PhoneBookRepository phoneBookRepository;
 
     @Autowired
     public PhoneBookController(PhoneBookService phoneBookService){
@@ -36,9 +38,9 @@ public class PhoneBookController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ApiOperation(value = "save contact details")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<String> save(@RequestParam String name, @RequestParam String lastName, @RequestParam String phone){
+    public ResponseEntity<String> save(@RequestBody PhoneDTO phoneDTO){
         String result;
-        result = phoneBookService.addContact(name, lastName, phone);
+        result = phoneBookService.addContact(phoneDTO);
         return ResponseEntity.ok(result);
     }
 }

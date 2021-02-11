@@ -20,13 +20,12 @@ public class PhoneBookService {
         this.phoneBookRepository = phoneBookRepository;
     }
 
-    public String addContact(String name, String lastname, String phone){
+    public String addContact(PhoneDTO phoneDTO){
         PhoneDetail phoneDetail = new PhoneDetail();
-        PhoneDTO phoneDTO = new PhoneDTO();
 
-        phoneDetail.setName(name);
-        phoneDetail.setLastname(lastname);
-        phoneDetail.setContactNumber(phone);
+        phoneDetail.setName(phoneDTO.getName());
+        phoneDetail.setLastname(phoneDTO.getLastname());
+        phoneDetail.setContactNumber(phoneDTO.getPhone());
         phoneBookRepository.save(phoneDetail);
         return "Contact saved successfully";
     }
@@ -40,5 +39,14 @@ public class PhoneBookService {
             phoneDTOList.add(phoneDTO);
         });
         return phoneDTOList;
+    }
+
+    public void update(PhoneDTO phoneDTO){
+        PhoneDetail phoneDetail = new PhoneDetail();
+
+        phoneDetail.setName(phoneDTO.getName());
+        phoneDetail.setLastname(phoneDTO.getLastname());
+        phoneDetail.setContactNumber(phoneDTO.getPhone());
+        phoneBookRepository.save(phoneDetail);
     }
 }
