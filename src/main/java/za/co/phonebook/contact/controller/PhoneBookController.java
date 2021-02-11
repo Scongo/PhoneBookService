@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import za.co.phonebook.contact.dto.PhoneDTO;
 import za.co.phonebook.contact.service.PhoneBookService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/phonebook")
 @Api(value = "Phone book management api", tags = {"manages operations on a phone book."})
@@ -24,8 +27,10 @@ public class PhoneBookController {
     @RequestMapping(value = "/load", method = RequestMethod.POST)
     @ApiOperation(value = "load all contact details")
     @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<PhoneDTO> getAllContact(){
-        return ResponseEntity.ok(null);
+    public ResponseEntity<List<PhoneDTO>> getAllContact(){
+        List<PhoneDTO> phoneDTOList = new ArrayList<>();
+        phoneDTOList = phoneBookService.getAllContact();
+        return ResponseEntity.ok(phoneDTOList);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
