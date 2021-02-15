@@ -41,6 +41,17 @@ public class PhoneBookService {
         return phoneDTOList;
     }
 
+    public PhoneDTO searchByName(String name){
+        PhoneDTO phoneDTO = new PhoneDTO();
+        PhoneDetail phoneDetail = new PhoneDetail();
+        phoneDetail = phoneBookRepository.getPhoneDetail(name);
+        phoneDTO.setName(phoneDetail.getName());
+        phoneDTO.setLastname(phoneDetail.getLastname());
+        phoneDTO.setPhone(phoneDetail.getContactNumber());
+
+        return phoneDTO;
+    }
+
     public void update(PhoneDTO phoneDTO){
         PhoneDetail phoneDetail = new PhoneDetail();
 

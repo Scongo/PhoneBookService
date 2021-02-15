@@ -19,7 +19,6 @@ import java.util.List;
 public class PhoneBookController {
 
     private PhoneBookService phoneBookService;
-    private PhoneBookRepository phoneBookRepository;
 
     @Autowired
     public PhoneBookController(PhoneBookService phoneBookService){
@@ -40,7 +39,25 @@ public class PhoneBookController {
     @ResponseStatus(HttpStatus.FOUND)
     public ResponseEntity<String> save(@RequestBody PhoneDTO phoneDTO){
         String result;
-        result = phoneBookService.addContact(phoneDTO);
-        return ResponseEntity.ok(result);
+        try {
+            result = phoneBookService.addContact(phoneDTO);
+            return ResponseEntity.ok(result);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @ApiOperation(value = "search contact details by name")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<PhoneDTO> search(@RequestParam String name){
+        PhoneDTO result;
+        try {
+            result = phoneBookService.searchByName(name);
+            return ResponseEntity.ok(result);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }
