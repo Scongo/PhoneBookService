@@ -12,3 +12,7 @@ CREATE TABLE phone_book
     contact_number       VARCHAR(100),
     CONSTRAINT user_lastName UNIQUE (contact_name)
 );
+
+INSERT INTO "phone_book" (contact_name, contact_lastName, contact_number) VALUES
+('Max', 'Fury', '0726632872'),
+('Dona', 'Wood', '0726629970');
